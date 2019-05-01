@@ -21,12 +21,14 @@ void PDE(){
     for(int i = 20; i <= 80; i ++){
         v_old[40][i] = v_placas;
         v_old[60][i] = -1*v_placas;
+        v_new[40][i] = v_placas;
+        v_new[60][i] = -1*v_placas;
     }
     float error_actual = 10.0;
     while(error_actual > error){
         for(int i = 1;i < N-1; i ++ ){
             for(int j = 1;j < N-1; j ++ ){
-                if(i!=40 && i != 60 && j > 80 && j < 20){
+                if(!((i==40 || i == 60) && j <= 80 && j >= 20)){
                     v_new[i][j] = 0.25*(v_old[i+1][j]+v_old[i-1][j]+v_old[i][j+1]+v_old[i][j-1]);
                     if(i == 1 && j == 1){
                         error_actual = abs(v_new[i][j] - v_old[i][j]);
